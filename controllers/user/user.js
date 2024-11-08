@@ -21,6 +21,7 @@ const adminRegister = async (req, res) => {
     } else {
       // Hash the password
       const hashedPassword = await bcrypt.hash(password, 10);
+
       // Create a new user
       const user = new User({
         username,
@@ -279,13 +280,12 @@ const getTree = async (req, res) => {
 };
 const addCoins = async (req, res) => {
   try {
-    let { coins } =
-      req.body;
+    let { coins } = req.body;
 
     let result = await User.updateOne(
       { _id: req.params.id },
       {
-        $inc: {coins}  
+        $inc: { coins },
       }
     );
 
@@ -441,13 +441,12 @@ const getUsersView = async (req, res) => {
 };
 const removeCoins = async (req, res) => {
   try {
-    let { coins } =
-      req.body;
+    let { coins } = req.body;
 
     let result = await User.updateOne(
       { _id: req.params.id },
       {
-        $inc: {coins: -1 * Number(coins)}  
+        $inc: { coins: -1 * Number(coins) },
       }
     );
 
@@ -457,7 +456,6 @@ const removeCoins = async (req, res) => {
     res.status(400).json({ error: "Failed to Update User" });
   }
 };
-
 
 const autoAssign = async (req, res) => {
   const agents = req.body.agents;
@@ -533,5 +531,5 @@ module.exports = {
   changeRoles,
   autoAssign,
   addCoins,
-  removeCoins
+  removeCoins,
 };

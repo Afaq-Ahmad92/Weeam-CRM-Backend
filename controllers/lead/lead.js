@@ -852,6 +852,10 @@ const history = async (req, res) => {
 
 const edit = async (req, res) => {
   try {
+    if (req.body.agentAssigned) {
+      const agent = await User.findOne({ _id: req.body.agentAssigned });
+      req.body.managerAssigned = agent?.parent;
+    }
     let result = await Lead.updateOne(
       { _id: req.params.id },
       { $set: req.body }
