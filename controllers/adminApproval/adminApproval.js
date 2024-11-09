@@ -35,6 +35,7 @@ const add = async (req, res) => {
       interest,
       leadName,
       leadStatus,
+      createdDate
     } = lead;
     const newApproval = new AdminApproval({
       leadName: leadName,
@@ -49,6 +50,7 @@ const add = async (req, res) => {
       interest: interest,
       approvalStatus: "pending",
       leadStatus: leadStatus,
+      createdDate
     });
     console.log(newApproval, "lead data");
     await newApproval.save();
